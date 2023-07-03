@@ -1,4 +1,4 @@
-import { RouteObject} from "../Interfaces";
+import { RouteObject } from "../Interfaces";
 import { timeSheetControllers } from "../controllers/time-sheets";
 
 import { createRouter } from "./create-router";

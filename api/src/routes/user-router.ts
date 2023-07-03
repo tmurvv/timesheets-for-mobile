@@ -1,4 +1,4 @@
-import {RouteObject} from "../Interfaces";
+import { RouteObject } from "../Interfaces";
 
 import { userControllers } from "../controllers/users";
 

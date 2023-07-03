@@ -1,1 +1,1 @@
-export {RouteObject} from "./route-object";
+export { RouteObject } from "./route-object";

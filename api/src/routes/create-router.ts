@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import {RouteObject} from "../Interfaces";
+import { RouteObject } from "../Interfaces";
 
 export const createRouter = (name: string, controllers: RouteObject) => {
   const router = Router();

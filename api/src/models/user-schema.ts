@@ -5,6 +5,7 @@ interface IUser {
   password: String;
   id: String;
 }
+
 const userSchema = new Schema<IUser>({
   userId: { type: String, required: true },
   password: { type: String, required: true },
