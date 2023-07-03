@@ -5,7 +5,7 @@ import { describe } from "mocha";
 const app = createServer();
 
 describe("timesheet routes", function () {
-  it("save responds with 200", function (done) {
-    request(app).post("/timesheets/saveId").expect(200, done);
+  it("delete responds with 204", function (done) {
+    request(app).delete("/timesheets/deleteId").expect(204, done);
   });
 });

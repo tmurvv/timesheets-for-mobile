@@ -1,12 +1,11 @@
 import request from "supertest";
-import { expect } from "chai";
 
-import createServer from 'server';
-import {describe} from "mocha";
+import createServer from "server";
+import { describe } from "mocha";
 const app = createServer();
 
-describe("auth routes", function() {
-    it("/auth responds with 200", function(done) {
-        request(app).post("/auth/signup").expect(200, done);
-    });
-})
+describe("auth routes", function () {
+  it("/auth responds with 200", function (done) {
+    request(app).post("/auth/signup").expect(200, done);
+  });
+});

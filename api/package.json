@@ -6,10 +6,11 @@
   "scripts": {
     "build": "rimraf dist && npx tsc",
     "prestart": "npm run build",
-    "start": "node dist/index.js",
+    "start": "node dist/app.js",
     "predev": "npm run build",
-    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
-    "test": "NODE_ENV=test mocha --check-leaks -r tsconfig-paths/register -r ts-node/register \\\"src/test/**/*.spec.ts\\\""
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/app.js\"",
+    "test": "NODE_ENV=test mocha --check-leaks -r tsconfig-paths/register -r ts-node/register \\\"src/test/**/*.spec.ts\\\"",
+    "pretty": "npx prettier --write ."
   },
   "keywords": [],
   "author": "",

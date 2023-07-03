@@ -1,18 +1,18 @@
-import express, {} from "express";
+import express from "express";
 
-import {login, signup} from "./routes/auth";
+import { authRouter, timesheetRouter } from "./routes/";
 
 export default function createServer() {
-    const app = express();
+  const app = express();
 
-    app.get("/", (req, res, next) => {
-        res.send("hello world");
-    });
+  app.get("/health", (req, res, next) => {
+    res.send("Health Status: SUCCESS!!");
+  });
 
-    app.post("/auth/login", login)
-    app.post("/auth/signup", signup);
+  app.use(authRouter);
+  app.use(timesheetRouter);
 
-    return app;
+  return app;
 }
 
 createServer();
