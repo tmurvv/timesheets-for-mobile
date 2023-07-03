@@ -9,7 +9,7 @@
     "start": "node dist/index.js",
     "predev": "npm run build",
     "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
-    "test": "NODE_ENV=test mocha --check-leaks -r tsconfig-paths/register -r ts-node/register \"test/**/*.spec.ts\""
+    "test": "NODE_ENV=test mocha --check-leaks -r tsconfig-paths/register -r ts-node/register \\\"src/test/**/*.spec.ts\\\""
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
     "concurrently": "^8.2.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "prettier": "^2.8.8",
     "rimraf": "^5.0.1",
     "typescript": "^5.1.6"
   },
