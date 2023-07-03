@@ -1,6 +1,6 @@
 import request from "supertest";
 
-import {createServer} from "create-server";
+import { createServer } from "create-server";
 import { describe } from "mocha";
 
 describe("timesheet routes", function () {

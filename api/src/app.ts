@@ -1,7 +1,7 @@
 import "dotenv/config";
 
-import {createServer} from "./create-server";
-import {dbConnect} from "./db-connect";
+import { createServer } from "./create-server";
+import { dbConnect } from "./db-connect";
 
 const startServer = async () => {
   const app = await createServer();

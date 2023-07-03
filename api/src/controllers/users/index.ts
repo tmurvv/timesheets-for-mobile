@@ -3,4 +3,4 @@ import { getAll } from "./getAll";
 import { getOne } from "./getOne";
 import { save } from "./save";
 
-export const timeSheetControllers = { del, getAll, getOne, save };
+export const userControllers = { del, getAll, getOne, save };
