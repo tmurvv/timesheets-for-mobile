@@ -1,7 +1,7 @@
 import { describe } from "mocha";
 import request from "supertest";
 
-import {createServer} from "server";
+import {createServer} from "create-server";
 
 describe("db checks", () => {
     it("db is connected without error", async () => {
