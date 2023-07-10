@@ -1,5 +1,10 @@
 import { Request, Response } from "express";
+import {omit} from "lodash";
 
-export const save = (req: Request, res: Response) => {
-  res.send("Login route working. Login function NYI");
+import {User} from "/models"
+
+export const save = async (req: Request, res: Response) => {
+  const returnedUser = await User.create({...req.body, ...req.params});
+
+  res.send(omit(returnedUser, ["__v","_id"]));
 };

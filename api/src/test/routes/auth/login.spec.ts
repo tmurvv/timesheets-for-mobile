@@ -1,5 +1,4 @@
 import request from "supertest";
-import { expect } from "chai";
 
 import { createServer } from "create-server";
 import { describe } from "mocha";
