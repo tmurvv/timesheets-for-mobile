@@ -7,6 +7,6 @@ describe("timesheet routes", function () {
   it("getOne responds with 200", async function () {
     const app = await createServer();
 
-    request(app).get("/timesheets/getId").expect(200);
+    request(app).get("/v1/timesheets/getId").expect(200);
   });
 });

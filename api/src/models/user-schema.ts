@@ -12,12 +12,20 @@ const userSchema = new Schema<IUser>({
   id: { type: String, required: true },
 });
 
-userSchema.set('toObject', {
-  transform: function (doc, ret) {
-    delete ret._id
-    delete ret.__v
-  }
-})
+userSchema.set("toJSON", {
+  transform: (document, returnedObject) => {
+    delete returnedObject._id;
+    delete returnedObject.__v;
+    // the passwordHash should not be revealed
+    // delete returnedObject.passwordHash
+  },
+});
 
+// userSchema.set('toObject', {
+//   transform: function (doc, ret) {
+//     delete ret._id
+//     delete ret.__v
+//   }
+// })
 
 export const User = model("user", userSchema);

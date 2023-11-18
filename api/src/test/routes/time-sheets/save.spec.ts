@@ -7,6 +7,6 @@ describe("timesheet routes", function () {
   it("save responds with 200", async function () {
     const app = await createServer();
 
-    request(app).post("/timesheets/saveId").expect(200);
+    request(app).post("/v1/timesheets/saveId").expect(200);
   });
 });

@@ -15,9 +15,9 @@ export const createServer = async () => {
 
   // bodyParser should be above methodOverride
   app.use(
-      bodyParser.urlencoded({
-        extended: true
-      })
+    bodyParser.urlencoded({
+      extended: true,
+    })
   );
   app.use(bodyParser.json());
   app.get("/health", (req, res) => {

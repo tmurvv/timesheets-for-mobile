@@ -7,6 +7,6 @@ describe("user routes", function () {
   it("getAll responds with 200", async function () {
     const app = await createServer();
 
-    request(app).get("/users").expect(200);
+    request(app).get("/v1/users").expect(200);
   });
 });

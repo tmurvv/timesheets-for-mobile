@@ -7,6 +7,6 @@ describe("user routes", function () {
   it("save responds with 200", async function () {
     const app = await createServer();
 
-    request(app).post("/users/saveId").expect(200);
+    request(app).post("/v1/users/saveId").expect(200);
   });
 });

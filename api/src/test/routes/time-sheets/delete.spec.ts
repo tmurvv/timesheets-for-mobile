@@ -6,6 +6,6 @@ import { describe } from "mocha";
 describe("timesheet routes", function () {
   it("delete responds with 204", async function () {
     const app = await createServer();
-    request(app).delete("/timesheets/deleteId").expect(204);
+    request(app).delete("/v1/timesheets/deleteId").expect(204);
   });
 });
