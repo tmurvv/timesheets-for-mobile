@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
+import {save} from "../users/save";
 
-export const signup = (req: Request, res: Response) => {
-  res.send("Signup route working. Signup function NYI");
+export const signup = async (req: Request, res: Response) => {
+  await save(req, res);
 };

@@ -21,24 +21,22 @@ const userSchema = new Schema<IUser>({
   lastName: {type: String, required: true},
 });
 
-// userSchema.pre('save', async function (next) {
-//   const salt = await bcrypt.genSalt();
-//   this.password = await bcrypt.hash(this.password, salt)
-  
-//   next();
-// });
-
 // Hash the password
-userSchema.pre('save', async function (this: IUser, next: (err?: Error | undefined) => void) {
-  if (!this.isModified('password')) {
-    return next();
-  }
+userSchema.pre("save", function (next) {
+  const user = this;
 
-  const salt = await bcrypt.genSalt();
+  bcrypt.genSalt(10, function (err, salt) {
+    if (err) {
+      return next(err);
+    }
+    bcrypt.hash(user.password, salt, (err, hash) => {
+      if (err) {
+        return next(err);
+      }
 
-  bcrypt.hash(this.password, salt, (err: Error | undefined, hash: string) => {
-    if (err) return next(err);
-    this.password = hash;
+      user.password = hash;
+      return next();
+    });
   });
 });
 
@@ -59,16 +57,16 @@ userSchema.set("toJSON", {
   transform: (document, returnedObject) => {
     delete returnedObject._id;
     delete returnedObject.__v;
-    // the passwordHash should not be revealed
-    // delete returnedObject.passwordHash
+    delete returnedObject.password
   },
 });
 
-// userSchema.set('toObject', {
-//   transform: function (doc, ret) {
-//     delete ret._id
-//     delete ret.__v
-//   }
-// })
+userSchema.set('toObject', {
+  transform: function (doc, ret) {
+    delete ret._id
+    delete ret.__v
+    delete ret.password;
+  }
+})
 
 export const User = model("user", userSchema);
