@@ -1,11 +1,16 @@
-import { Schema, model } from "mongoose";
+import bcrypt from "bcrypt";
+import { Document, Schema, model } from "mongoose";
 
-interface IUser {
+export interface IUser extends Document {
   email: String;
-  password: String;
+  password: string | Buffer;
   id: String;
   firstName: String;
   lastName: String;
+  comparePasswords(
+    candidatePassword: string,
+    next: (err: Error | null, same: boolean | null) => void
+  ): void;
 }
 
 const userSchema = new Schema<IUser>({
@@ -15,6 +20,40 @@ const userSchema = new Schema<IUser>({
   firstName: {type: String, required: true},
   lastName: {type: String, required: true},
 });
+
+// userSchema.pre('save', async function (next) {
+//   const salt = await bcrypt.genSalt();
+//   this.password = await bcrypt.hash(this.password, salt)
+  
+//   next();
+// });
+
+// Hash the password
+userSchema.pre('save', async function (this: IUser, next: (err?: Error | undefined) => void) {
+  if (!this.isModified('password')) {
+    return next();
+  }
+
+  const salt = await bcrypt.genSalt();
+
+  bcrypt.hash(this.password, salt, (err: Error | undefined, hash: string) => {
+    if (err) return next(err);
+    this.password = hash;
+  });
+});
+
+userSchema.methods.comparePasswords = function (
+  candidatePassword: string,
+  next: (err: Error | null, same: boolean | null) => void,
+) {
+  bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
+    if (err) {
+      return next(err, null);
+    }
+    next(null, isMatch);
+  });
+};
+
 
 userSchema.set("toJSON", {
   transform: (document, returnedObject) => {
