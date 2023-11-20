@@ -4,12 +4,16 @@ interface IUser {
   email: String;
   password: String;
   id: String;
+  firstName: String;
+  lastName: String;
 }
 
 const userSchema = new Schema<IUser>({
   email: { type: String, required: true },
   password: { type: String, required: true },
   id: { type: String, required: true },
+  firstName: {type: String, required: true},
+  lastName: {type: String, required: true},
 });
 
 userSchema.set("toJSON", {

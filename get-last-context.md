@@ -1,9 +1,14 @@
 2023-11-18
 
 NEXT
-- enhance user schema
-- get login and signup working
-- start on timesheets
+
+- [X] Enhance user schema
+- [X] Set up real Mongo Db
+- [ ] Hash Password
+- [ ] Get Signup and Login Working
+- [ ] Get JWT token working
+- [ ] Start on timesheets
+
 
 --
 - having trouble with supertest, will go back to Jest

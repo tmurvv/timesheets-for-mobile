@@ -1,23 +1,23 @@
 import "dotenv/config";
 import mongoose from "mongoose";
 
-export const dbConnect = async () => {
-  const database: string = process.env.DATABASE_STAGING || "";
-  const databasePassword: string = process.env.DATABASE_PASSWORD || "";
-  const environment: string = process.env.NODE_ENV || "";
+const createDbString = (environment: String) =>
+  process.env[`DATABASE_${environment.toUpperCase()}`]!.replace("<PASSWORD>", process.env.DATABASE_PASSWORD!);
 
-  const DB = database.replace("<PASSWORD>", databasePassword);
+export const dbConnect = async () => {
+  const env = process.env.NODE_ENV;
+  const DB = createDbString(env!);
 
   await mongoose
     .connect(DB, {})
     .then(() =>
       console.log(
-        `DB connection successful. Environment: ${environment}, DB: ${database}`
+        `DB connection successful. Environment: ${env}`
       )
     )
     .catch(() =>
       console.log(
-        `DB NOT CONNECTING. PLEASE CHECK NETWORK. Environment: ${environment}, DB: ${database} `
+        `DB NOT CONNECTING. PLEASE CHECK NETWORK. Environment: ${env} `
       )
     );
 };
