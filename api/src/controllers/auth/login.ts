@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import { Error } from "mongoose";
 import { User, IUser } from "../../models/user-schema";
+import jwt from "jsonwebtoken";
+import "dotenv/config";
+
 
 export const login = async (req: Request, res: Response) => {
   // fetch user and test password verification
@@ -16,7 +19,19 @@ export const login = async (req: Request, res: Response) => {
       }
 
       if (isMatch) {
-        return res.send({ status: "success", data: found.set(found) });
+        const token = jwt.sign(
+          { id: 7, role: "captain" },
+          "Why cant I get my secret from dot env"
+        );
+
+        return res
+          .cookie("access_token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+          })
+          .status(200)
+          .json({ message: "Logged in successfully 😊 👌", status: "success", data: found.set(found) });
+
       } else {
         return res.send("The password does not match our records.");
       }

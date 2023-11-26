@@ -64,7 +64,6 @@ describe("timesheet service", () => {
   it("GET all timesheets responds with timesheets", async function () {
     const returned = await request(app).get(`/v1/timesheets`);
 
-    console.log("blkdj", returned);
     // expect(returned).to.equal(200);
     // expect(returned.body).to.be("array");
   });

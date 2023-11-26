@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import bodyParser from "body-parser";
 import helmet from "helmet";
+import cookieParser from "cookie-parser";
 
 import { authRouter, timesheetRouter, userRouter } from "./routes/";
 
@@ -9,7 +10,8 @@ export const createServer = async () => {
   const app = express();
 
   app.use(helmet());
-
+  app.use(cookieParser());
+  
   // Static files middleware
   // app.use(express.static(config.root + '/public'));
 
