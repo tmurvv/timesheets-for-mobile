@@ -14,6 +14,8 @@ describe("user service", () => {
   const user = {
     email: "me@me.com",
     password: "myPassword",
+    firstName: "Test",
+    lastName: "User",
     id: uuid(),
   };
 
@@ -36,7 +38,12 @@ describe("user service", () => {
 
     expect(savedUser.id).to.exist;
     expect(savedUser.email).to.equal(user.email);
-    expect(savedUser.password).to.equal(user.password);
+    expect(savedUser.firstName).to.equal(user.firstName);
+    expect(savedUser.lastName).to.equal(user.lastName);
+
+    savedUser.comparePasswords(user.password, function (err, isMatch) {
+      expect(isMatch).to.equal(true);
+    });
   });
 
   it("GET user responds with correct user", async function () {
@@ -47,7 +54,12 @@ describe("user service", () => {
     const returned = await request(app).get(`/v1/users/${testUser.id}`);
 
     expect(returned.status).to.equal(200);
-    // expect(returned.body.email).to.equal("me@me.com");
+    // expect(returned.body.email).to.equal({
+    //   email: "me@me.com",
+    //   firstName: "Test",
+    //   lastName: "User",
+    //   id: uuid(),
+    // });
     // expect(returned.body.id).to.exist;
   });
 
@@ -55,7 +67,7 @@ describe("user service", () => {
 
     const returned = await request(app).get(`/v1/users`);
 
-    console.log('blkdj', returned)
+    // console.log('blkdj', returned)
     // expect(returned).to.equal(200);
     // expect(returned.body).to.be("array");
   });

@@ -6,8 +6,8 @@ NEXT
 - [X] Set up real Mongo Db
 - [X] Hash Password
 - [X] Get Signup and Login Working with postman
-- [ ] Add confirm password
-- [ ] Get JWT token working
+- [X] Add confirm password (happens on FE)
+- [ ] Get JWT token working (https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs)
 - [ ] Start on timesheets
 
 
