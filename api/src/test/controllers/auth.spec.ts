@@ -6,12 +6,16 @@ import { v4 as uuid } from "uuid";
 import { User } from "../../models/user-schema";
 import connect, { MongodHelper } from "../with-mongodb-memory-server";
 import { createServer } from "../../create-server";
+import { SimpleUser } from "Interfaces/simple-user";
+import { FullUser } from "Interfaces/full-user";
+
+type cookieType = "string";
 
 describe("auth service", () => {
   let mongodHelper: MongodHelper;
   let app: Application;
 
-  const user = {
+  const user: FullUser = {
     email: "me@me.com",
     password: "myPassword",
     firstName: "Test",
@@ -32,43 +36,63 @@ describe("auth service", () => {
     await mongodHelper.closeDatabase();
   });
 
-  it("should login a user", async () => {
+  it("should return user info and cookie with valid login", async () => {
     const testUser = new User(user);
-    const returnedUser = await testUser.save();
-    console.log("returnedUser cookie: ", returnedUser);
-    
-    
-    
-    expect(returnedUser.id).to.exist;
-    expect(returnedUser.email).to.equal(user.email);
-    expect(returnedUser.firstName).to.equal(user.firstName);
-    expect(returnedUser.lastName).to.equal(user.lastName);
+    const savedUser = await testUser.save();
 
-    // jwt
+    const response = await request(app)
+      .post("/v1/auth/login")
+      .send({ email: savedUser.email, password: "myPassword" })
+      .set("Content-Type", "application/json")
+      .set("Accept", "application/json")
+      .expect(200);
+
+    const cookies: cookieType[] = response.headers["set-cookie"];
+    const userData: SimpleUser = response.body.data;
+    expect(cookies.some((cookie) => cookie.includes("access_token"))).to.be
+      .true;
+
+    expect(userData).to.deep.equal({
+      email: savedUser.email,
+      firstName: savedUser.firstName,
+      lastName: savedUser.lastName,
+      id: savedUser.id,
+    });
   });
 
-  // it("GET user responds with correct user", async function () {
-  //   // create user
+  it("should reject invalid user email", async () => {
+    const result = await request(app)
+      .post("/v1/auth/login")
+      .send({ email: "not@valid.com", password: "myPassword" })
+      .set("Content-Type", "application/json")
+      .set("Accept", "application/json")
+      .expect(400);
+
+    expect(result.body.message).to.equal("Email not found.");
+  });
+
+  it("should not login valid user with invalid password", async () => {
+    const testUser = new User(user);
+    const savedUser = await testUser.save();
+
+    const result = await request(app)
+      .post("/v1/auth/login")
+      .send({ email: savedUser.email, password: "password" })
+      .set("Content-Type", "application/json")
+      .set("Accept", "application/json")
+      .expect(400);
+
+    expect(result.body.message).to.equal(
+      "Password does not match our records."
+    );
+  });
+
+  // it("should login valid user with valid jwt", async () => {
   //   const testUser = new User(user);
-  //   await testUser.save();
-
-  //   const returned = await request(app).get(`/v1/users/${testUser.id}`);
-
-  //   expect(returned.status).to.equal(200);
-  //   // expect(returned.body.email).to.equal({
-  //   //   email: "me@me.com",
-  //   //   firstName: "Test",
-  //   //   lastName: "User",
-  //   //   id: uuid(),
-  //   // });
-  //   // expect(returned.body.id).to.exist;
+  //   const savedUser = await testUser.save();
   // });
-
-  // it("GET all users responds with users", async function () {
-  //   const returned = await request(app).get(`/v1/users`);
-
-  //   // console.log('blkdj', returned)
-  //   // expect(returned).to.equal(200);
-  //   // expect(returned.body).to.be("array");
+  // it("should not login valid user with invalid jwt", async () => {
+  //   const testUser = new User(user);
+  //   const savedUser = await testUser.save();
   // });
 });

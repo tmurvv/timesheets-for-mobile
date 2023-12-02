@@ -12,5 +12,4 @@ NEXT
 
 
 --
-- having trouble with supertest, will go back to Jest
 - Testing app.get user requests
