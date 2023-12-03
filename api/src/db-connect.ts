@@ -4,9 +4,12 @@ import mongoose from "mongoose";
 const createDbString = (environment: String) =>
   process.env[`DATABASE_${environment.toUpperCase()}`]!.replace("<PASSWORD>", process.env.DATABASE_PASSWORD!);
 
+  
 export const dbConnect = async () => {
   const env = process.env.NODE_ENV;
   const DB = createDbString(env!);
+  
+  console.log('from dbConnect', DB)
 
   await mongoose
     .connect(DB, {})

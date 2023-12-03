@@ -7,8 +7,9 @@ NEXT
 - [X] Hash Password
 - [X] Get Signup and Login Working with postman
 - [X] Add confirm password (happens on FE)
-- [ ] Get JWT token working (https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs)
+- [X] Get JWT returned on login working (https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs)
 - [ ] Start on timesheets
+- [ ] Get Login accepts JWT working
 
 
 --

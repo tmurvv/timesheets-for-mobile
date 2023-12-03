@@ -1,8 +1,12 @@
-import { RouteObject } from "../Interfaces";
-import { timeSheetControllers } from "../controllers/time-sheets";
+import { Router } from "express";
 
-import { createRouter } from "./create-router";
+import { timesheetControllers } from "../controllers/timesheets";
 
-const router = createRouter("timeSheets", <RouteObject>timeSheetControllers);
+const router = Router();
+
+router.put("/v1/timesheets/:id", timesheetControllers.save);
+router.get("/v1/timesheets/", timesheetControllers.getAllByUserId);
+router.delete("/v1/timesheets/:id", timesheetControllers.del);
+router.get("/v1/timesheets", timesheetControllers.getAll);
 
 export const timesheetRouter = router;

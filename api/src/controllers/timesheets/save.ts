@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import { omit } from "lodash";
 
-import { User } from "../../models/user-schema";
+import { Timesheet } from "../../models/timesheet-schema";
 
 export const save = async (req: Request, res: Response) => {
-  let returnedUser: object | null = {};
+  let returnedTimesheet: object | null = {};
 
   try {
-    returnedUser = await User.findOneAndUpdate(
+    returnedTimesheet = await Timesheet.findOneAndUpdate(
       { id: req.body.id },
       { ...req.body, ...req.params },
       { new: true, upsert: true }
@@ -22,5 +22,5 @@ export const save = async (req: Request, res: Response) => {
 
   res
     .status(200)
-    .json({ status: 200, data: omit(returnedUser, ["__v", "_id"]) });
+    .json({ status: 200, data: omit(returnedTimesheet, ["__v", "_id"]) });
 };
