@@ -3,7 +3,7 @@ import { expect } from "chai";
 import request from "supertest";
 import { v4 as uuid } from "uuid";
 
-import { User } from "../../models/user-schema";
+import { User } from "../../models";
 import connect, { MongodHelper } from "../with-mongodb-memory-server";
 import { createServer } from "../../create-server";
 import { SimpleUser } from "Interfaces/simple-user";
@@ -98,7 +98,7 @@ describe("auth service", () => {
       .set("Accept", "application/json")
       .expect(200);
 
-      const token = loginResponse.body.data.token;
+    const token = loginResponse.body.data.token;
 
     const response = await request(app).post("/v1/auth/login").send({ token });
     const cookies: cookieType[] = response.headers["set-cookie"];

@@ -10,7 +10,8 @@
     "predev": "npm run build",
     "dev": "concurrently \"tsc -w\" \"nodemon dist/app.js\"",
     "test": "NODE_ENV=test mocha --check-leaks -r tsconfig-paths/register -r ts-node/register \\\"src/test/**/*.spec.ts\\\"",
-    "pretty": "npx prettier --write ."
+    "pretty": "npx prettier --write .",
+    "p": "npx prettier --write ."
   },
   "keywords": [],
   "author": "",

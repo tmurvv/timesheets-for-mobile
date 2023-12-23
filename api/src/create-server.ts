@@ -11,7 +11,7 @@ export const createServer = async () => {
 
   app.use(helmet());
   app.use(cookieParser());
-  
+
   // Static files middleware
   // app.use(express.static(config.root + '/public'));
 

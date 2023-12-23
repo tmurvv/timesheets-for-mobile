@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Timesheet } from "../../models/timesheet-schema";
+import { Timesheet } from "../../models";
 
 export const getAll = (req: Request, res: Response) => {
   const data = Timesheet.find({});
@@ -7,7 +7,5 @@ export const getAll = (req: Request, res: Response) => {
     return res.status(404).json({ status: "fail", message: "no data found" });
   }
 
-  return res
-    .status(200)
-    .json({ status: "success", data });
+  return res.status(200).json({ status: "success", data });
 };

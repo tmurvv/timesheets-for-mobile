@@ -1,7 +1,9 @@
 # Mobile Timesheet Entry - API
+
 This web app is targeted to construction workers for Ultimate Renovations, a Canadian company with multiple 'Best in Renovation' awards. The company needed a simple, fast way for their workers to enter hours at the end of the work-day while still at the construction job-site.
 
 ## Additional Features
+
 This level of customization would not be possible with off-the-shelf software:
 
 - Dynamically updates the job-site selection box on the timesheet entry to reflect a constantly changing list of clients

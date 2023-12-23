@@ -1,8 +1,12 @@
 import { Model } from "mongoose";
 
-export const upsert = async (model: Model<any>, filter: object, doc: object) => {
+export const upsert = async (
+  model: Model<any>,
+  filter: object,
+  doc: object
+) => {
   try {
-    console.log("imin upsert")
+    console.log("imin upsert");
     await model.create(doc);
   } catch (error: any) {
     if (typeof error === "object") {
@@ -14,4 +18,4 @@ export const upsert = async (model: Model<any>, filter: object, doc: object) => 
       }
     }
   }
-}
+};

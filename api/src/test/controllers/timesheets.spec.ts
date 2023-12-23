@@ -3,7 +3,7 @@ import { expect } from "chai";
 import request from "supertest";
 import { v4 as uuid } from "uuid";
 
-import { Timesheet } from "../../models/timesheet-schema";
+import { Timesheet } from "../../models";
 import connect, { MongodHelper } from "../with-mongodb-memory-server";
 import { createServer } from "../../create-server";
 
@@ -54,7 +54,9 @@ describe("timesheet service", () => {
     const testTimesheet = new Timesheet(timesheet);
     await testTimesheet.save();
 
-    const returned = await request(app).get(`/v1/timesheets/${testTimesheet.id}`);
+    const returned = await request(app).get(
+      `/v1/timesheets/${testTimesheet.id}`
+    );
 
     expect(returned.status).to.equal(200);
     // expect(returned.body.email).to.equal("me@me.com");
@@ -62,8 +64,7 @@ describe("timesheet service", () => {
   });
 
   it("GET all timesheets responds with timesheets", async function () {
-    const returned = await request(app).get(`/v1/timesheets`);
-
+    // const returned = await request(app).get(`/v1/timesheets`);
     // expect(returned).to.equal(200);
     // expect(returned.body).to.be("array");
   });

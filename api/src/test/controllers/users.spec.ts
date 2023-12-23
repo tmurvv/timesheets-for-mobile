@@ -3,7 +3,7 @@ import { expect } from "chai";
 import request from "supertest";
 import { v4 as uuid } from "uuid";
 
-import { User } from "../../models/user-schema";
+import { User } from "../../models";
 import connect, { MongodHelper } from "../with-mongodb-memory-server";
 import { createServer } from "../../create-server";
 
@@ -64,9 +64,7 @@ describe("user service", () => {
   });
 
   it("GET all users responds with users", async function () {
-
-    const returned = await request(app).get(`/v1/users`);
-
+    // const returned = await request(app).get(`/v1/users`);
     // console.log('blkdj', returned)
     // expect(returned).to.equal(200);
     // expect(returned.body).to.be("array");
