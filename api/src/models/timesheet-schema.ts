@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import { Document, Schema, model } from "mongoose";
 
 export interface ITimesheet extends Document {

@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
 
-import { Timesheet } from "../../models";
-import { User } from "../../models";
+import { Timesheet } from "../../models/timesheet-schema";
+import { User } from "../../models/user-schema";
 
 const getUserId = async (id: string) => {
   if (id.includes("@")) {
     const user = await User.findOne({ email: id });
-    if (user) return user.id;
-    return;
+    if (user) return user ? user.id : undefined;
   }
 
   return id;

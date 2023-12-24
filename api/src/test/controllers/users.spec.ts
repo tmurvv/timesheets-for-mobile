@@ -3,7 +3,7 @@ import { expect } from "chai";
 import request from "supertest";
 import { v4 as uuid } from "uuid";
 
-import { User } from "../../models";
+import { User } from "../../models/user-schema";
 import connect, { MongodHelper } from "../with-mongodb-memory-server";
 import { createServer } from "../../create-server";
 

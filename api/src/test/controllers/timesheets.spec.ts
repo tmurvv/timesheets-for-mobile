@@ -3,7 +3,7 @@ import { expect } from "chai";
 import request from "supertest";
 import { v4 as uuid } from "uuid";
 
-import { Timesheet } from "../../models";
+import { Timesheet } from "../../models/timesheet-schema";
 import connect, { MongodHelper } from "../with-mongodb-memory-server";
 import { createServer } from "../../create-server";
 
@@ -59,13 +59,18 @@ describe("timesheet service", () => {
     );
 
     expect(returned.status).to.equal(200);
-    // expect(returned.body.email).to.equal("me@me.com");
-    // expect(returned.body.id).to.exist;
   });
 
   it("GET all timesheets responds with timesheets", async function () {
-    // const returned = await request(app).get(`/v1/timesheets`);
-    // expect(returned).to.equal(200);
-    // expect(returned.body).to.be("array");
+    const testTimesheet = new Timesheet(timesheet);
+    const testTimesheet2 = new Timesheet(timesheet);
+    await testTimesheet.save();
+    await testTimesheet2.save();
+
+    const returned = await request(app).get(`/v1/timesheets`);
+
+    expect(returned.statusCode).to.equal(200);
+    expect(returned.body.data).to.be.an("array");
+    expect(returned.body.data).to.have.lengthOf(2);
   });
 });

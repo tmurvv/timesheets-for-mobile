@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 
-import { Timesheet } from "../../models";
+import { User } from "../../models/user-schema";
 
-export const getTimesheets = async (req: Request, res: Response) => {
-  const data = await Timesheet.find({ id: req.params.id });
+export const getAll = async (req: Request, res: Response) => {
+  const data = await User.find({});
 
   if (!data) {
     return res.status(404).json({ status: "fail", message: "no data found" });

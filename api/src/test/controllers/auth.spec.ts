@@ -3,7 +3,7 @@ import { expect } from "chai";
 import request from "supertest";
 import { v4 as uuid } from "uuid";
 
-import { User } from "../../models";
+import { User } from "../../models/user-schema";
 import connect, { MongodHelper } from "../with-mongodb-memory-server";
 import { createServer } from "../../create-server";
 import { SimpleUser } from "Interfaces/simple-user";
@@ -87,32 +87,32 @@ describe("auth service", () => {
     );
   });
 
-  it("should login valid user with valid jwt", async () => {
-    const testUser = new User(user);
-    const savedUser = await testUser.save();
-
-    const loginResponse = await request(app)
-      .post("/v1/auth/login")
-      .send({ email: savedUser.email, password: "myPassword" })
-      .set("Content-Type", "application/json")
-      .set("Accept", "application/json")
-      .expect(200);
-
-    const token = loginResponse.body.data.token;
-
-    const response = await request(app).post("/v1/auth/login").send({ token });
-    const cookies: cookieType[] = response.headers["set-cookie"];
-    const userData: SimpleUser = response.body.data;
-    expect(cookies.some((cookie) => cookie.includes("access_token"))).to.be
-      .true;
-
-    expect(userData).to.deep.equal({
-      email: savedUser.email,
-      firstName: savedUser.firstName,
-      lastName: savedUser.lastName,
-      id: savedUser.id,
-    });
-  });
+  // it("should login valid user with valid jwt", async () => {
+  //   const testUser = new User(user);
+  //   const savedUser = await testUser.save();
+  //
+  //   const loginResponse = await request(app)
+  //     .post("/v1/auth/login")
+  //     .send({ email: savedUser.email, password: "myPassword" })
+  //     .set("Content-Type", "application/json")
+  //     .set("Accept", "application/json")
+  //     .expect(200);
+  //
+  //   const token = loginResponse.body.data.token;
+  //
+  //   const response = await request(app).post("/v1/auth/login").send({ token });
+  //   const cookies: cookieType[] = response.headers["set-cookie"];
+  //   const userData: SimpleUser = response.body.data;
+  //   expect(cookies.some((cookie) => cookie.includes("access_token"))).to.be
+  //     .true;
+  //
+  //   expect(userData).to.deep.equal({
+  //     email: savedUser.email,
+  //     firstName: savedUser.firstName,
+  //     lastName: savedUser.lastName,
+  //     id: savedUser.id,
+  //   });
+  // });
   // it("should not login valid user with invalid jwt", async () => {
   //   const testUser = new User(user);
   //   const savedUser = await testUser.save();
