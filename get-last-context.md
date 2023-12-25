@@ -14,7 +14,8 @@ NEXT
 
 ---
 
-- Testing app.get user requests
+- back to FE timesheets
+- JWT get secret from .env
 
 ---
 
