@@ -3,6 +3,7 @@ import { Document, Schema, model } from "mongoose";
 export interface ITimesheet extends Document {
   userId: String;
   id: String;
+  lunchInMinutes: Number;
   timeIn: Date;
   timeOut: Date;
   timeEntered: Date;
@@ -18,6 +19,7 @@ const timesheetSchema = new Schema<ITimesheet>({
   timeOut: { type: Date, required: true },
   timeEntered: { type: Date, required: true },
   location: { type: String, required: true },
+  lunchInMinutes: { type: Number, required: true },
   typeOfWork: {
     type: String,
     enum: ["painting", "flooring", "deck", "landscape", "plumbing", "cabinets"],

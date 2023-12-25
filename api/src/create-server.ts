@@ -1,4 +1,5 @@
 import "dotenv/config";
+import cors from "cors";
 import express from "express";
 import bodyParser from "body-parser";
 import helmet from "helmet";
@@ -9,9 +10,10 @@ import { authRouter, timesheetRouter, userRouter } from "./routes/";
 export const createServer = async () => {
   const app = express();
 
+  app.use(cors());
   app.use(helmet());
   app.use(cookieParser());
-
+  
   // Static files middleware
   // app.use(express.static(config.root + '/public'));
 

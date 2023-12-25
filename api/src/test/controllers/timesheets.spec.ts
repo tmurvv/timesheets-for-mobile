@@ -15,9 +15,10 @@ describe("timesheet service", () => {
     userId: uuid(),
     id: uuid(),
     timeIn: new Date(),
-    timeOut: new Date(),
+    timeOut: new Date((new Date()).getTime() + 2 * 60 * 1000),
     timeEntered: new Date(),
     location: "A location",
+    lunchInMinutes: 30,
     typeOfWork: "painting",
     notes: "These are some notes.",
   };

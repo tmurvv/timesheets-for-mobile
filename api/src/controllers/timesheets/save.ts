@@ -9,8 +9,12 @@ export const save = async (req: Request, res: Response) => {
   try {
     returnedTimesheet = await Timesheet.findOneAndUpdate(
       { id: req.body.id },
-      { ...req.body, ...req.params },
-      { new: true, upsert: true }
+      {
+        ...req.body,
+        lunchInMinutes: +req.body.lunchInMinutes,
+        id: req.params.id,
+      },
+      { upsert: true }
     );
   } catch (e) {
     if (e instanceof Error) {
