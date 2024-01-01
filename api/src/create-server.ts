@@ -1,6 +1,6 @@
 import "dotenv/config";
 import cors from "cors";
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 import bodyParser from "body-parser";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
@@ -13,7 +13,7 @@ export const createServer = async () => {
   app.use(cors());
   app.use(helmet());
   app.use(cookieParser());
-  
+
   // Static files middleware
   // app.use(express.static(config.root + '/public'));
 
@@ -31,6 +31,12 @@ export const createServer = async () => {
   app.use(authRouter);
   app.use(timesheetRouter);
   app.use(userRouter);
+
+  app.use((err: string, req: Request, res: Response, next: NextFunction) => { // removing the unused next function will cause tests to fail
+    console.log(err);
+
+    return res.status(400).json(err);
+  });
 
   return app;
 };

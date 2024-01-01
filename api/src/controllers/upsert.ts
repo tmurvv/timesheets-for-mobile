@@ -6,7 +6,6 @@ export const upsert = async (
   doc: object
 ) => {
   try {
-    console.log("imin upsert");
     await model.create(doc);
   } catch (error: any) {
     if (typeof error === "object") {

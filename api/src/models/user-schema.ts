@@ -21,25 +21,6 @@ const userSchema = new Schema<IUser>({
   lastName: { type: String, required: true },
 });
 
-// Hash the password
-userSchema.pre("save", function (next) {
-  const user = this;
-
-  bcrypt.genSalt(10, function (err, salt) {
-    if (err) {
-      return next(err);
-    }
-    bcrypt.hash(user.password, salt, (err, hash) => {
-      if (err) {
-        return next(err);
-      }
-
-      user.password = hash;
-      return next();
-    });
-  });
-});
-
 userSchema.methods.comparePasswords = function (
   candidatePassword: string,
   next: (err: Error | null, same: boolean | null) => void

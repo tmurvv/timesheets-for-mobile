@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Timesheet } from "../../models/timesheet-schema";
 
 export const getAll = async (req: Request, res: Response) => {
-  const data = await Timesheet.find({});
+  const data: object[] = await Timesheet.find({});
 
   if (!data) {
     return res
@@ -12,11 +12,9 @@ export const getAll = async (req: Request, res: Response) => {
 
   const length = data.length;
 
-  return res
-    .status(200)
-    .json({
-      status: "success",
-      message: `returning ${length} timesheet${length === 1 ? "" : "s"}`,
-      data,
-    });
+  return res.status(200).json({
+    status: "success",
+    message: `returning ${length} timesheet${length === 1 ? "" : "s"}`,
+    data,
+  });
 };

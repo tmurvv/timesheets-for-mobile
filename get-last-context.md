@@ -13,8 +13,6 @@ NEXT
 - [ ] Once FE is sending JWT, get Login accepts JWT working (see below for hints)
 
 ---
-
-- back to FE timesheets
 - JWT get secret from .env
 
 ---
